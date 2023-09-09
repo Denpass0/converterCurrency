@@ -1,0 +1,66 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  gap: 40px;
+}
+
+.display {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgb(183, 183, 183) ;
+  padding: 30px 60px;
+}
+
+.currencyExchange {
+  display: flex;
+  gap: 10px;
+  align-items: center;  
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+input {
+  height: 140px;
+  width: 400px;
+}
+
+p {
+  color: #757575;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.workArea {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+select {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+option {
+  display: block;
+  background-color:rgb(196, 194, 194);
+}
