@@ -24,7 +24,14 @@
             <div class="currencies">
               <select name="" id="gettingCurrency"></select>
             </div>
-            <input id="gettingCurrencyField" type="text" placeholder="Enter value" value=""/>
+            <div class="validationError">
+              <p>ВЫ ОШИБЛИСЬ! КОНВЕРТАТОР ПРИНИМАЕТ ТОЛЬКО ЧИСЛА!</p>
+              <input
+                id="gettingCurrencyField"
+                type="text"
+                placeholder="Enter value"
+              />
+            </div>
           </div>
           <button>
             <svg
@@ -62,7 +69,8 @@
             <div class="currencies">
               <select name="" id="transferCurrency"></select>
             </div>
-            <input id="transferCurrencyField" type="text" placeholder="0" />
+              <input id="transferCurrencyField" type="text" placeholder="0" />
+            </div>
           </div>
         </div>
         <div class="date">

@@ -23,43 +23,79 @@ const createOptionForEachCurrency = () => {
 };
 
 const getSelectedOption = (selectedId) => {
-  const options = Array.from(document.querySelectorAll(`#${selectedId} option`));
-  return options.find((elem) => elem.selected === true).textContent; 
+  const options = Array.from(
+    document.querySelectorAll(`#${selectedId} option`)
+  );
+  return options.find((elem) => elem.selected === true).textContent;
+};
+
+const fieldValidation = (input) => {
+  const errorFieldWrappers = Array.from(
+    document.querySelectorAll('.validationError')
+  );
+  input.addEventListener('input', (event) => {
+    let value = event.target.value;
+    let lastElement = value[value.length - 1];
+    console.log(+lastElement);
+    if (isNaN(+lastElement)) {
+      errorFieldWrappers.forEach((elem) => {
+        elem.classList.add('activeValidationError');
+      });
+    }
+  });
 };
 
 (async () => {
-  await fetch(`https://v6.exchangerate-api.com/v6/${myKey}/latest/USD`)
-  .then((data) => data.json())
-  .then((result) => {
+  try {
+    const data = await fetch(
+      `https://v6.exchangerate-api.com/v6/${myKey}/latest/USD`
+    );
+
+    // if (!data) {
+    //   throw new Error('lalala');
+    // }
+    const result = await data.json();
+
     currencies = getCurrenciesFromApi(result);
     createOptionForEachCurrency(currencies);
-  });
-  let choosenGettingCurrency;
-  let choosenTransferCurrency;
-  const gettingCurrency = document.getElementById('gettingCurrency');
-  const transferCurrency = document.getElementById('transferCurrency');
-  gettingCurrency.addEventListener('change', () => {
-    choosenGettingCurrency = getSelectedOption('gettingCurrency');
-    return getSelectedOption('gettingCurrency');
-  });
-  transferCurrency.addEventListener('change', () => {
-    choosenTransferCurrency = getSelectedOption('transferCurrency');
-    return getSelectedOption('transferCurrency');
-  });
-  gettingCurrency.addEventListener('click', () => console.log(choosenGettingCurrency));
-  
-  const gettingCurrencyField = document.getElementById('gettingCurrencyField');
-  const transferCurrencyField = document.getElementById('transferCurrencyField');
-  gettingCurrencyField.addEventListener('input', (event) => {
-    // console.log(event.target);
-    event.target.value = '1';
-  });
-  console.log(gettingCurrencyField);
 
-  const gettingCurrencyFieldValue = gettingCurrencyField.textContent ;
+    let choosenGettingCurrency = 'USD';
+    let choosenTransferCurrency = 'USD';
 
-  const transferButton = document.getElementsByTagName('button')[0];
-  transferButton.addEventListener('click', () => {
-    console.log(gettingCurrencyFieldValue);
-  })
+    const gettingCurrency = document.getElementById('gettingCurrency');
+    const transferCurrency = document.getElementById('transferCurrency');
+    gettingCurrency.addEventListener('change', () => {
+      choosenGettingCurrency = getSelectedOption('gettingCurrency');
+      return getSelectedOption('gettingCurrency');
+    });
+    transferCurrency.addEventListener('change', () => {
+      choosenTransferCurrency = getSelectedOption('transferCurrency');
+      return getSelectedOption('transferCurrency');
+    });
+
+    const gettingCurrencyField = document.getElementById(
+      'gettingCurrencyField'
+    );
+    const transferCurrencyField = document.getElementById(
+      'transferCurrencyField'
+    );
+
+    fieldValidation(gettingCurrencyField);
+
+    const transferButton = document.getElementsByTagName('button')[0];
+    transferButton.addEventListener('click', async (event) => {
+      const gettingCurrencyValue = gettingCurrencyField.value;
+
+      const data = await fetch(
+        `https://v6.exchangerate-api.com/v6/${myKey}/latest/${choosenGettingCurrency}`
+      );
+      const result = await data.json();
+
+      const a = result.conversion_rates[choosenTransferCurrency];
+
+      console.log(new Date());
+    });
+  } catch (err) {
+    console.error(err);
+  }
 })();

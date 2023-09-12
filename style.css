@@ -22,14 +22,14 @@ main {
   gap: 40px;
   align-items: center;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgb(183, 183, 183) ;
+  box-shadow: 0 0 10px rgb(183, 183, 183);
   padding: 30px 60px;
 }
 
 .currencyExchange {
   display: flex;
   gap: 10px;
-  align-items: center;  
+  align-items: center;
 }
 
 .date {
@@ -62,5 +62,20 @@ select {
 
 option {
   display: block;
-  background-color:rgb(196, 194, 194);
+  background-color: rgb(196, 194, 194);
+}
+
+.validationError p {
+  display: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(187, 4, 4);
+}
+
+.activeValidationError input {
+  border: 2px solid rgb(187, 4, 4);
+}
+
+.activeValidationError p {
+  display: block;
 }
