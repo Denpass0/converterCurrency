@@ -1,4 +1,4 @@
-const myKey = '7af53d206961f945ba2cf8d0';
+const myKey = '234e80b26ac7f1befcf468eb';
 
 let currencies;
 
