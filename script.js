@@ -2,6 +2,27 @@ const myKey = '7af53d206961f945ba2cf8d0';
 
 let currencies;
 
+const getAppropriateFormatOfDate = (value) => {
+  const date = new Date();
+  switch (value) {
+    case 'month':
+      return ("0" + (date.getMonth() + 1)).slice(-2);
+    case 'day':
+      return ("0" + (date.getDate() + 1)).slice(-2);
+  }
+};
+
+const getFullDate = () => {
+  const date = new Date();
+  const dateInAppropriateFormat = `${getAppropriateFormatOfDate('day')}-${getAppropriateFormatOfDate('month')}-${date.getFullYear()} ${date.toLocaleTimeString()} GMT+03:00`;
+
+  return dateInAppropriateFormat;
+};
+
+const dateArea = document.getElementById('date');
+
+dateArea.textContent = getFullDate();
+
 const getCurrenciesFromApi = (obj) => {
   return Object.keys(obj.conversion_rates);
 };
@@ -11,11 +32,15 @@ const createOptionForEachCurrency = () => {
   const transferCurrency = document.getElementById('transferCurrency');
 
   for (let currency of currencies) {
-    let option = document.createElement('option');
+    const option = document.createElement('option');
     option.textContent = currency;
     option.setAttribute('value', currency);
 
-    let option2 = option.cloneNode(true);
+    const option2 = option.cloneNode(true);
+
+    if (currency === 'RUB') {
+      option2.selected = 'selected';
+    }
 
     gettingCurrency.append(option);
     transferCurrency.append(option2);
@@ -30,20 +55,20 @@ const getSelectedOption = (selectedId) => {
 };
 
 const fieldValidation = (input) => {
-  const errorFieldWrappers = Array.from(
-    document.querySelectorAll('.validationError')
-  );
+  const errorFieldWrappers = document.querySelector('.validationError');
+
   input.addEventListener('input', (event) => {
     let value = event.target.value;
     let lastElement = value[value.length - 1];
-    console.log(+lastElement);
     if (isNaN(+lastElement)) {
-      errorFieldWrappers.forEach((elem) => {
-        elem.classList.add('activeValidationError');
-      });
+      errorFieldWrappers.classList.add('activeValidationError');
+    }
+    if (lastElement == undefined || !isNaN(+value)) {
+      errorFieldWrappers.classList.remove('activeValidationError');
     }
   });
 };
+
 
 (async () => {
   try {
@@ -60,7 +85,7 @@ const fieldValidation = (input) => {
     createOptionForEachCurrency(currencies);
 
     let choosenGettingCurrency = 'USD';
-    let choosenTransferCurrency = 'USD';
+    let choosenTransferCurrency = 'RUB';
 
     const gettingCurrency = document.getElementById('gettingCurrency');
     const transferCurrency = document.getElementById('transferCurrency');
@@ -82,7 +107,7 @@ const fieldValidation = (input) => {
 
     fieldValidation(gettingCurrencyField);
 
-    const transferButton = document.getElementsByTagName('button')[0];
+    const transferButton = document.getElementById('convertButton');
     transferButton.addEventListener('click', async (event) => {
       const gettingCurrencyValue = gettingCurrencyField.value;
 
@@ -91,9 +116,15 @@ const fieldValidation = (input) => {
       );
       const result = await data.json();
 
-      const a = result.conversion_rates[choosenTransferCurrency];
+      const receivedCurrency = +result.conversion_rates[choosenTransferCurrency] * +gettingCurrencyValue;
 
-      console.log(new Date());
+      if (isNaN(+receivedCurrency)) {
+        console.error('Field value is not a number')
+      } else {
+        transferCurrencyField.value = receivedCurrency;
+      }
+
+      dateArea.textContent = getFullDate();
     });
   } catch (err) {
     console.error(err);

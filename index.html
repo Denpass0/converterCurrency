@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Converter</title>
-    <link rel="stylesheet" href="/reset.css" />
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,7 +15,7 @@
   </head>
   <body>
     <main>
-      <h1>CONVERTER</h1>
+      <h1>Currency Converter</h1>
 
       <div class="display">
         <div class="currencyExchange">
@@ -25,7 +25,7 @@
               <select name="" id="gettingCurrency"></select>
             </div>
             <div class="validationError">
-              <p>ВЫ ОШИБЛИСЬ! КОНВЕРТАТОР ПРИНИМАЕТ ТОЛЬКО ЧИСЛА!</p>
+              <p>The field only accepts numbers</p>
               <input
                 id="gettingCurrencyField"
                 type="text"
@@ -33,10 +33,10 @@
               />
             </div>
           </div>
-          <button>
+          <button id="convertButton" class="convertButton">
             <svg
-              width="64px"
-              height="64px"
+              width="50px"
+              height="50px"
               viewBox="0 0 21 21"
               xmlns="http://www.w3.org/2000/svg"
               fill="#000000"
@@ -51,7 +51,7 @@
                 <g
                   fill="none"
                   fill-rule="evenodd"
-                  stroke="#000000"
+                  stroke="rgb(44, 44, 44)"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   transform="translate(4 2)"
@@ -69,16 +69,16 @@
             <div class="currencies">
               <select name="" id="transferCurrency"></select>
             </div>
-              <input id="transferCurrencyField" type="text" placeholder="0" />
+              <input id="transferCurrencyField" type="text" placeholder="0" disabled/>
             </div>
           </div>
-        </div>
-        <div class="date">
-          <p>From the date</p>
-          <div>2023-09-02 11:30:00 GMT+03:00</div>
+          <div class="date">
+            <p>From the date</p>
+            <div id="date"></div>
+          </div>
         </div>
       </div>
     </main>
-    <script src="/script.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>

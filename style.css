@@ -1,9 +1,12 @@
 body {
   font-family: 'Roboto', sans-serif;
+  color: rgb(44, 44, 44);
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 32px;
+  letter-spacing: 2px;
+  font-weight: 300;
 }
 
 main {
@@ -22,8 +25,9 @@ main {
   gap: 40px;
   align-items: center;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgb(183, 183, 183);
+  box-shadow: 0 0 10px rgb(1, 108, 170);
   padding: 30px 60px;
+  background-color: rgb(250, 250, 250);
 }
 
 .currencyExchange {
@@ -41,6 +45,32 @@ main {
 input {
   height: 140px;
   width: 400px;
+  border-radius: 5px;
+  border: 2px solid rgb(48, 149, 207);
+  outline: none;
+  font-size: 20px;
+  margin-top: 10px;
+  text-indent: 10px;
+  color: #757575;
+  font-size: 24px;
+}
+
+input:focus {
+  border: 2px solid rgb(1, 108, 170);
+}
+
+input::placeholder {
+  font-size: 24px;
+  color: rgb(190, 190, 190);
+}
+
+.convertButton {
+  cursor: pointer;
+  margin-top: 70px;
+}
+
+.convertButton:hover svg g{
+  stroke: rgb(1, 108, 170);
 }
 
 p {
@@ -65,15 +95,27 @@ option {
   background-color: rgb(196, 194, 194);
 }
 
+.validationError {
+  position: relative;
+}
+
 .validationError p {
   display: none;
   font-size: 14px;
   font-weight: 500;
-  color: rgb(187, 4, 4);
+  color: rgb(216, 14, 14);
+  position: absolute;
+  top: -6px;
 }
 
 .activeValidationError input {
-  border: 2px solid rgb(187, 4, 4);
+  outline: none;
+  border-radius: 5px;
+  border: 2px solid rgb(216, 14, 14);
+}
+
+.workAreaWithError {
+  gap: 30px;
 }
 
 .activeValidationError p {
